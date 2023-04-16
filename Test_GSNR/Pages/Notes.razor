@@ -33,7 +33,10 @@
 
             <div class="row">
                 <div class="col">
-                    <input class="form-control" placeholder="Введите название заметки" @bind="newNote"/>
+                    <input class="form-control" placeholder="Введите название заметки" @bind="title"/>
+                </div>
+                <div class="col">
+                    <input class="form-control" placeholder="Введите содержание заметки" @bind="description"/>
                 </div>
                 <div class="col">
                     <button class="btn btn-success" @onclick="AddNote">Добавить</button>
@@ -47,14 +50,22 @@
 @code {
     private IList<NoteItem> notes = new List<NoteItem>();
 
-    private string newNote;
+    private string title = null!;
+
+    private string description = null!;
 
     private void AddNote()
     {
-        if(!string.IsNullOrWhiteSpace(newNote))
+        if (!string.IsNullOrWhiteSpace(title) && !string.IsNullOrWhiteSpace(description))
         {
-            notes.Add(new NoteItem { Title = newNote });
-            newNote = string.Empty;
+            notes.Add(new NoteItem() 
+                {   
+                    Title = title, 
+                    Description = description 
+                });
+
+            title = string.Empty;
+            description = string.Empty;
         }
     }
 
