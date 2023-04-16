@@ -19,7 +19,7 @@
                         <tr>
                             <td>
                                 @item.Title
-                            </td
+                            </td>
                             <td>
                                 @item.Description
                             </td>
@@ -30,10 +30,31 @@
                     </tbody>
                 }
             </table>
+
+            <div class="row">
+                <div class="col">
+                    <input class="form-control" placeholder="Введите название заметки" @bind="newNote"/>
+                </div>
+                <div class="col">
+                    <button class="btn btn-success" @onclick="AddNote">Добавить</button>
+                </div>
+            </div>
+            
         </div>
     </div>
 </div>
 
 @code {
     private IList<NoteItem> notes = new List<NoteItem>();
+
+    private string newNote;
+
+    private void AddNote()
+    {
+        if(!string.IsNullOrWhiteSpace(newNote))
+        {
+            notes.Add(new NoteItem { Title = newNote });
+            newNote = string.Empty;
+        }
+    }
 }
