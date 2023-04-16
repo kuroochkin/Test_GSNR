@@ -24,7 +24,7 @@
                                 @item.Description
                             </td>
                             <td>
-                                
+                                <button class="btn btn-danger" @onclick="(() => Delete(item))">Удалить</button>
                             </td>
                         </tr>
                     </tbody>
@@ -56,5 +56,10 @@
             notes.Add(new NoteItem { Title = newNote });
             newNote = string.Empty;
         }
+    }
+
+    private void Delete(NoteItem noteItem)
+    {
+        notes.Remove(noteItem);
     }
 }
