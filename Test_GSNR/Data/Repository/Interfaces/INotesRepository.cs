@@ -11,4 +11,6 @@ public interface INotesRepository
     void EditNote(NoteItem noteItem);
 
     void DeleteNote(int id);
+
+    NoteItem FindNoteById(int Id);
 }
