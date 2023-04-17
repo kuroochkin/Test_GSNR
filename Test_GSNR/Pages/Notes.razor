@@ -1,4 +1,7 @@
-﻿@page "/notes"
+﻿@inject Test_GSNR.Data.Repository.INotesRepository repository
+@inject NavigationManager NavigationManager
+
+@page "/notes"
 
 <div class="container-fluid">
     <div class="row">
@@ -11,6 +14,7 @@
                         <th scope="col">Название</th>
                         <th scope="col">Описание</th>
                         <th scope="col"></th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 @foreach(var item in notes)
@@ -19,21 +23,72 @@
                         <tr>
                             <td>
                                 @item.Title
-                            </td
+                            </td>
                             <td>
                                 @item.Description
                             </td>
                             <td>
-                                
+                                <button class="btn btn-danger" @onclick="(() => Edit(item.Id))">Редактировать</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-danger" @onclick="(() => Delete(item.Id))">Удалить</button>
                             </td>
                         </tr>
                     </tbody>
                 }
             </table>
+
+            <div class="row">
+                <div class="col">
+                    <input class="form-control" placeholder="Введите название заметки" @bind="title"/>
+                </div>
+                <div class="col">
+                    <input class="form-control" placeholder="Введите содержание заметки" @bind="description"/>
+                </div>
+                <div class="col">
+                    <button class="btn btn-success" @onclick="AddNote">Добавить</button>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
 
 @code {
-    private IList<NoteItem> notes = new List<NoteItem>();
+    private IEnumerable<NoteItem> notes = new List<NoteItem>();
+
+    protected override void OnInitialized()
+    {
+        notes = repository.GetAllNotes();
+    }
+
+    private string title = null!;
+
+    private string description = null!;
+
+    private void AddNote()
+    {
+        if (!string.IsNullOrWhiteSpace(title) && !string.IsNullOrWhiteSpace(description))
+        {
+            repository.AddNote(title, description);
+
+            title = string.Empty;
+            description = string.Empty;
+        }
+    }
+
+    private void Edit(int id)
+    {
+
+    }
+
+    private void Delete(int Id)
+    {
+        //var note = repository.FindNoteById(Id);
+        //if (note != null)
+        //{
+        //    notes.Remove(note);
+        //}
+        repository.DeleteNote(Id);
+    }
 }

@@ -1,6 +1,6 @@
-﻿namespace Test_GSNR.Models;
+﻿namespace Test_GSNR.ViewModels;
 
-public class NoteItem
+public class NoteItemVm
 {
 	public int Id { get; set; }
 	public string Title { get; set; }
