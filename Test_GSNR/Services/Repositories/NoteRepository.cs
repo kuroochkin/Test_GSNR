@@ -3,13 +3,13 @@ using Test_GSNR.Data;
 using Test_GSNR.Data.Repository;
 using Test_GSNR.Models;
 
-namespace Test_GSNR.Services;
+namespace Test_GSNR.Services.Repositories;
 
-public class SQLRepository : INotesRepository
+public class NoteRepository : INotesRepository
 {
     private readonly NotesDb _context;
 
-    public SQLRepository(NotesDb context)
+    public NoteRepository(NotesDb context)
     {
         _context = context;
     }

@@ -1,4 +1,5 @@
 ﻿@inject Test_GSNR.Data.Repository.INotesRepository repository
+@inject NavigationManager NavigationManager
 
 @page "/notes"
 
@@ -13,6 +14,7 @@
                         <th scope="col">Название</th>
                         <th scope="col">Описание</th>
                         <th scope="col"></th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 @foreach(var item in notes)
@@ -24,6 +26,9 @@
                             </td>
                             <td>
                                 @item.Description
+                            </td>
+                            <td>
+                                <button class="btn btn-danger" @onclick="(() => Edit(item.Id))">Редактировать</button>
                             </td>
                             <td>
                                 <button class="btn btn-danger" @onclick="(() => Delete(item.Id))">Удалить</button>
@@ -44,7 +49,7 @@
                     <button class="btn btn-success" @onclick="AddNote">Добавить</button>
                 </div>
             </div>
-            
+
         </div>
     </div>
 </div>
@@ -65,17 +70,16 @@
     {
         if (!string.IsNullOrWhiteSpace(title) && !string.IsNullOrWhiteSpace(description))
         {
-            //notes.Add(new NoteItem() 
-            //    {   
-            //        Title = title, 
-            //        Description = description 
-            //    });
-
             repository.AddNote(title, description);
 
             title = string.Empty;
             description = string.Empty;
         }
+    }
+
+    private void Edit(int id)
+    {
+
     }
 
     private void Delete(int Id)
